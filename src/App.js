@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "./App.css";
+import langs from "./langs";
 
 function App() {
+  const lang = useSelector(state => state.lang); //selectionne la partie du store
+  console.log(langs[lang]);
+  const dispatch = useDispatch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {langs[lang].hello}
+      <button
+        onClick={() =>
+          dispatch({
+            type: "CHANGE_LANG",
+            data: lang === "fr" ? "en" : "fr"
+          })
+        }
+      >
+        Toogle
+      </button>
+      <select
+        onChange={e =>
+          dispatch({
+            type: "CHANGE_LANG",
+            data: e.target.value
+          })
+        }
+      >
+        {Object.keys(langs).map(k => (
+          <option value={k} selected={lang === { k }}>
+            {" "}
+            {k}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
