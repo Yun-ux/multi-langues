@@ -4,7 +4,7 @@ import "./App.css";
 import langs from "./langs";
 
 function App() {
-  const lang = useSelector(state => state.lang); //selectionne la partie du store
+  const lang = useSelector(state => state.langReducer.lang); //selectionne la partie du store
   console.log(langs[lang]);
   const dispatch = useDispatch();
   return (
